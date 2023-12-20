@@ -1,6 +1,6 @@
-import 'package:cross_classify_sdk/cross_classify.dart';
+import 'package:cross_classify/cross_classify.dart';
 import 'package:flutter/material.dart';
-import 'package:matomo_tracker/utils/random_alpha_numeric.dart';
+import 'package:matomo_tracker_enhanced/utils/random_alpha_numeric.dart';
 
 class TraceableForm extends StatefulWidget {
   const TraceableForm({

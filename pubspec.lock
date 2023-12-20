@@ -352,15 +352,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
-  matomo_tracker:
+  matomo_tracker_enhanced:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: b08b3828c09a6f7dccd9dac0636d450f00c83228
-      url: "https://github.com/iliyami/matomo-tracker"
-    source: git
-    version: "4.1.1"
+      name: matomo_tracker_enhanced
+      sha256: "15ac47a4ca9180e0f1197b04f506300695e8486345d0d7f966208476e5f763cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.2"
   meta:
     dependency: transitive
     description:

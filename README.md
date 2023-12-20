@@ -49,7 +49,7 @@ Run the command `flutter pub get` to install the package.
 In the Dart file where you want to use the CrossClassify SDK, add the following import statement at the top:
 
 ```dart
-import 'package:cross_classify_sdk/cross_classify.dart';
+import 'package:cross_classify/cross_classify.dart';
 ```
 
 ### **Step 3:** Initialize the CrossClassify object

@@ -1,4 +1,4 @@
-import 'package:cross_classify_sdk/cross_classify.dart';
+import 'package:cross_classify/cross_classify.dart';
 import 'package:flutter/material.dart';
 
 class ControllableFormFieldWidget extends StatefulWidget {

@@ -1,6 +1,6 @@
-import 'package:cross_classify_sdk/cross_classify.dart';
-import 'package:cross_classify_sdk/traceable_widgets/traceable_form_field_widget.dart';
-import 'package:cross_classify_sdk/traceable_widgets/traceable_form_widget.dart';
+import 'package:cross_classify/cross_classify.dart';
+import 'package:cross_classify/traceable_widgets/traceable_form_field_widget.dart';
+import 'package:cross_classify/traceable_widgets/traceable_form_widget.dart';
 import 'package:example/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';

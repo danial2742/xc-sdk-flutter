@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cross_classify_sdk/models/form_models.dart';
+import 'package:cross_classify/models/form_models.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:matomo_tracker/matomo_tracker.dart';
+import 'package:matomo_tracker_enhanced/matomo_tracker.dart';
 import 'package:uuid/uuid.dart';
-export 'package:matomo_tracker/matomo_tracker.dart';
+export 'package:matomo_tracker_enhanced/matomo_tracker.dart';
 import 'package:crypto/crypto.dart';
 
 RouteObserver<ModalRoute<void>> get crossClassifyObserver => matomoObserver;
@@ -75,7 +75,7 @@ class CrossClassify {
               androidInfo.hardware +
               androidInfo.manufacturer +
               androidInfo.product +
-              androidInfo.display +
+              //androidInfo.display +
               androidInfo.host +
               androidInfo.model +
               androidInfo.id +
