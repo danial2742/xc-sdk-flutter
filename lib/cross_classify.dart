@@ -80,9 +80,7 @@ class CrossClassify {
               androidInfo.model +
               androidInfo.id +
               androidInfo.brand +
-              androidInfo.serialNumber +
-              androidInfo.displayMetrics.heightPx.toString() +
-              androidInfo.displayMetrics.widthPx.toString(),
+              androidInfo.serialNumber,
         ));
         debugPrint('Fingerprint: ${fingerprint.toString()}');
         return fingerprint.toString();
