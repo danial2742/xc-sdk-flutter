@@ -173,8 +173,10 @@ class CrossClassify {
     if (_formFields.isEmpty) {
       _disposeDispatchTimer();
     }
-    _formFields[index].controller.clear();
-    _formFields.removeAt(index);
+    if (index > -1) {
+      _formFields[index].controller.clear();
+      _formFields.removeAt(index);
+    }
   }
 
   void onFormSubmit() {
