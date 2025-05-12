@@ -1,6 +1,6 @@
 name: cross_classify
 description: The Cross Classify Flutter SDK.
-version: 0.9.0
+version: 0.9.1
 homepage: https://github.com/crossclassify/xc-sdk-flutter
 repository: https://github.com/crossclassify/xc-sdk-flutter
 issue_tracker: https://github.com/crossclassify/xc-sdk-flutter/issues
