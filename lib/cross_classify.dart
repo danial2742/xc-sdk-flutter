@@ -32,7 +32,17 @@ class CrossClassify {
   late final String _pageViewId;
   Duration? _formHesitationTime;
 
-  Future<void> initialize({required String apiKey, required int siteId}) async {
+  Future<void> initialize({
+    required String apiKey,
+    required int siteId,
+    String? testUid,
+    bool enableTracker = true,
+  }) async {
+    if (!enableTracker || Platform.environment.containsKey('FLUTTER_TEST')) {
+      _initialized = true;
+      return;
+    }
+
     if (apiKey.startsWith('#') || siteId == -1) {
       throw Exception('Please provide your own API key and site ID!');
     }
@@ -64,6 +74,10 @@ class CrossClassify {
   }
 
   Future<String> _getUid() async {
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      return 'test-uid';
+    }
+
     final deviceInfoPlugin = DeviceInfoPlugin();
     if (kIsWeb == false) {
       if (Platform.isAndroid) {
@@ -129,7 +143,7 @@ class CrossClassify {
   }
 
   void _registerTextController(FormFieldModel formField) {
-    return formField.controller.addListener(() {
+    formField.textListener = () {
       final text = formField.controller.text;
       if (formField.faCn != text) {
         formField.faFts = _timeSinceStart().inMilliseconds;
@@ -142,7 +156,8 @@ class CrossClassify {
         formField.faFd++;
       }
       formField.faCn = text;
-    });
+    };
+    formField.controller.addListener(formField.textListener!);
   }
 
   void _registerFocusNode(FormFieldModel formField) {
@@ -155,27 +170,36 @@ class CrossClassify {
   }
 
   void _subscribeFormHesitationTime(FormFieldModel formField) {
-    formField.controller.addListener(() {
+    formField.hesitationListener = () {
       if (_formHesitationTime == null && formField.controller.text.isNotEmpty) {
         _formHesitationTime = _timeSinceStart();
         formField.faFht = _formHesitationTime!.inMilliseconds;
       }
-    });
+    };
+    formField.controller.addListener(formField.hesitationListener!);
   }
 
   void _disposeNodeController(int index) {
-    _formFields[index].controller.dispose();
-    _formFields[index].node.dispose();
+    final field = _formFields[index];
+    if (field.textListener != null) {
+      field.controller.removeListener(field.textListener!);
+    }
+    if (field.hesitationListener != null) {
+      field.controller.removeListener(field.hesitationListener!);
+    }
+    field.controller.dispose();
+    field.node.dispose();
   }
 
   void removeFormField(String id) {
     final index = _formFields.indexWhere((element) => element.id == id);
-    if (_formFields.isEmpty) {
-      _disposeDispatchTimer();
-    }
     if (index > -1) {
-      _formFields[index].controller.clear();
+      _disposeNodeController(index);
       _formFields.removeAt(index);
+
+      if (_formFields.isEmpty) {
+        _disposeDispatchTimer();
+      }
     }
   }
 
@@ -244,6 +268,7 @@ class CrossClassify {
     for (var i = 0; i < _formFields.length; i++) {
       _disposeNodeController(i);
     }
+    _formFields.clear();
   }
 }
 
