@@ -146,4 +146,8 @@ class FormFieldModel {
   /// To calculate TextEditingController related fields such as: [faCh], [faFht], [faFb], [faFch], [faFd], [faFs]
   @JsonKey(includeToJson: false)
   late final TextEditingController controller;
+
+  /// Listener reference to handle clean disposal
+  VoidCallback? textListener;
+  VoidCallback? hesitationListener;
 }
