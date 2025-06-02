@@ -26,10 +26,10 @@ class CrossClassify {
   final List<FormFieldModel> _formFields = [];
   final _formInterval = const Duration(seconds: 30);
   Timer? _timer;
-  late final DateTime _startTime;
-  late final String _formName;
-  late final PerformanceInfo? _performanceInfo;
-  late final String _pageViewId;
+  DateTime? _startTime;
+  String? _formName;
+  PerformanceInfo? _performanceInfo;
+  String? _pageViewId;
   Duration? _formHesitationTime;
 
   Future<void> initialize({
@@ -47,8 +47,7 @@ class CrossClassify {
       throw Exception('Please provide your own API key and site ID!');
     }
     if (_initialized) {
-      //TODO handle all exptions properly
-      throw Exception('Already Initialized!');
+      throw Exception('CrossClassify is Already Initialized!');
     }
 
     await MatomoTracker.instance.initialize(
@@ -230,10 +229,12 @@ class CrossClassify {
   }
 
   void _trackForm({bool isSubmitted = false}) {
+    assert(_startTime != null, '_startTime must be set via initForm()');
+    assert(_formName != null, '_formName must be set via initForm()');
     _calculateFieldsContentData();
     final FormModel formModel = FormModel(
-      faName: _formName,
-      faSt: _startTime.millisecondsSinceEpoch.toString(),
+      faName: _formName!,
+      faSt: _startTime!.millisecondsSinceEpoch.toString(),
       faVid: _pageViewId,
       faTs: _getTimeSpent(),
       faHt: _formHesitationTime?.inMilliseconds.toString(),
@@ -256,11 +257,14 @@ class CrossClassify {
         customActions: formModel.toJson());
   }
 
-  String _getTimeSpent() =>
-      (DateTime.now().difference(_startTime)).inMilliseconds.toString();
+  String _getTimeSpent() {
+    assert(_startTime != null, '_startTime must be set via initForm()');
+    return (DateTime.now().difference(_startTime!)).inMilliseconds.toString();
+  }
 
   Duration _timeSinceStart() {
-    return DateTime.now().difference(_startTime);
+    assert(_startTime != null, '_startTime must be set via initForm()');
+    return DateTime.now().difference(_startTime!);
   }
 
   void dispose() {
